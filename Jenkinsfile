@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/onniluova/jenkinstask.git'
+                git 'https://github.com/onniluova/TempConverter.git'
             }
         }
 
