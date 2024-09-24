@@ -3,5 +3,5 @@ WORKDIR /app
 COPY pom.xml .
 RUN mvn dependency:go-offline
 COPY src ./src
-RUN mvn package -X
+RUN mvn package
 CMD ["java", "-jar", "target/jenkinstask2-1.0-SNAPSHOT.jar"]
