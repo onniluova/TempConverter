@@ -1,42 +1,37 @@
-
 pipeline {
     agent any
 
     tools {
-            maven 'Maven'
-     }
+        maven 'Maven'
+    }
+
+    environment {
+        DOCKERHUB_CREDENTIALS_ID = 'onboni'
+        DOCKERHUB_REPO = 'onboni/fartocelkelvin'
+        DOCKER_IMAGE_TAG = 'latest'
+    }
 
     stages {
         stage('Checkout') {
             steps {
                 git 'https://github.com/onniluova/TempConverter.git'
             }
-        }
-
-        stage('Build') {
+        }  
+        stage('Build Docker Image') {
             steps {
-                sh 'mvn clean install'
+                script {
+                    docker.build("${DOCKERHUB_REPO}:${DOCKER_IMAGE_TAG}")
+                }
             }
         }
-
-        stage('Test') {
+        stage('Push Docker Image to Docker Hub') {
             steps {
-                sh 'mvn test'
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', DOCKERHUB_CREDENTIALS_ID) {
+                        docker.image("${DOCKERHUB_REPO}:${DOCKER_IMAGE_TAG}").push()
+                    }
+                }
             }
-        }
-
-        stage('Code Coverage') {
-            steps {
-                jacoco execPattern: '**/target/jacoco.exec'
-            }
-        }
-    }
-
-    post {
-        always {
-            junit '**/target/surefire-reports/*.xml'
-            jacoco execPattern: '**/target/jacoco.exec'
         }
     }
 }
-
