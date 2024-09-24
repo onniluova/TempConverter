@@ -1,9 +1,10 @@
+
 pipeline {
     agent any
 
     tools {
-        maven 'Maven'
-    }
+            maven 'Maven'
+     }
 
     stages {
         stage('Checkout') {
@@ -14,13 +15,13 @@ pipeline {
 
         stage('Build') {
             steps {
-                bat 'mvn clean install'
+                sh 'mvn clean install'
             }
         }
 
         stage('Test') {
             steps {
-                bat 'mvn test'
+                sh 'mvn test'
             }
         }
 
@@ -33,8 +34,9 @@ pipeline {
 
     post {
         always {
-            junit '/target/surefire-reports/*.xml'
+            junit '**/target/surefire-reports/*.xml'
             jacoco execPattern: '**/target/jacoco.exec'
         }
     }
 }
+
