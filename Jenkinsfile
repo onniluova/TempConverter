@@ -11,13 +11,6 @@ pipeline {
         DOCKER_IMAGE_TAG = 'latest'
     }
 
-    stage('Maven Build') {
-        steps {
-            sh 'mvn clean package'
-        }
-    }
-
-
     stages {
         stage('Checkout') {
             steps {
