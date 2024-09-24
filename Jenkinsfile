@@ -27,12 +27,11 @@ pipeline {
         stage('Push Docker Image to Docker Hub') {
             steps {
                 script {
-                    echo "Attempting to push image: ${docker.image.prefix}/${project.artifactId}:latest"
-                    echo "Using credential ID: onboni"
-                    withDockerRegistry([credentialsId: 'onboni', url: '']) {
-                        bat "docker push ${docker.image.prefix}/${project.artifactId}:latest"
+                    docker.withRegistry('https://index.docker.io/v1/', DOCKERHUB_CREDENTIALS_ID) {
+                        docker.image("${DOCKERHUB_REPO}:${DOCKER_IMAGE_TAG}").push()
                     }
                 }
             }
         }
+    }
 }
