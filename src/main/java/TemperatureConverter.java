@@ -37,4 +37,23 @@ public class TemperatureConverter {
     public double kelvinToFah(double kel) {
         return (kel - 273.15) * 9 / 5 + 32;
     }
+    public static void main(String[] args) {
+        TemperatureConverter converter = new TemperatureConverter();
+
+        double fahrenheit = 100;
+        double celsius = converter.fahrenheitToCelsius(fahrenheit);
+        System.out.println(fahrenheit + " Fahrenheit is " + celsius + " Celsius");
+
+        celsius = 0;
+        fahrenheit = converter.celsiusToFahrenheit(celsius);
+        System.out.println(celsius + " Celsius is " + fahrenheit + " Fahrenheit");
+
+        double kelvin = 300;
+        celsius = converter.kelvinToCel((float) kelvin);
+        System.out.println(kelvin + " Kelvin is " + celsius + " Celsius");
+
+        kelvin = 0;
+        fahrenheit = converter.kelvinToFah(kelvin);
+        System.out.println(kelvin + " Kelvin is " + fahrenheit + " Fahrenheit");
+    }
 }
