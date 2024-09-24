@@ -7,7 +7,7 @@ pipeline {
 
     environment {
         DOCKERHUB_CREDENTIALS_ID = 'onboni'
-        DOCKERHUB_REPO = 'onboni/fartocelkelvin'
+        DOCKERHUB_REPO = 'onboni/tempconverter'
         DOCKER_IMAGE_TAG = 'latest'
     }
 
